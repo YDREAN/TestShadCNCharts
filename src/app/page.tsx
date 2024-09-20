@@ -10,28 +10,42 @@ export default function Home() {
       <h1 className="m-5 text-3xl border-b-2  border-black inline-block">
         Premier graphique :
       </h1>
-      <div className="p-4">
-        <div className="flex gap-2 h-full  p-2  ">
-          <div className=" w-1/3">
+      <div className="">
+        <div className="flex     bg-red-500  ">
+          <div className="flex items-center justify-center   bg-blue-300 ">
             <Charts1></Charts1>
           </div>
-          <div className=" w-1/3">
+          <div className="flex items-center justify-center  bg-blue-100   ">
             <ChartCircle1></ChartCircle1>
           </div>
-          <div className=" w-1/3">
+          <div className=" ">
             <ChartDouble></ChartDouble>
           </div>
         </div>
-        <div className="flex gap-2 h-full  p-2  ">
+        <div className="flex gap-2  p-2  ">
           <div className=" w-1/2">
             <ChartWave></ChartWave>
+          </div>
+          <div className="flex flex-wrap  justify-between  w-1/2">
+            <Charts1></Charts1>
+            <ChartCircle1></ChartCircle1>
+            <ChartCircle1></ChartCircle1>
+            <ChartCircle1></ChartCircle1>
+          </div>
+        </div>
+        <div className="flex gap-2  p-2  ">
+          <div className="flex flex-wrap  justify-between  w-1/2">
+            <ChartCircle1></ChartCircle1>
+            <ChartCircle1></ChartCircle1>
+            <ChartCircle1></ChartCircle1>
+            <ChartCircle1></ChartCircle1>
           </div>
           <div className=" w-1/2">
             <ChartWave></ChartWave>
           </div>
         </div>
 
-        <div className="flex gap-2 h-full justify-between  p-2  ">
+        <div className="flex gap-2 justify-between  p-2  ">
           <div className=" ">
             <Charts1></Charts1>
           </div>
