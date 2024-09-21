@@ -1,65 +1,60 @@
-import Image from "next/image";
-import { Charts1 } from "./chartstest1";
-import { ChartCircle1 } from "./chartcircle1";
-import { ChartDouble } from "./chartdouble";
-import { ChartWave } from "./chartwave";
+import { ChartCircle2 } from "./chartcircle2";
+import { Charts2 } from "./chartstest2";
+import { ChartWave2 } from "./chartwave2";
+import { ChartDouble2 } from "./chartdouble2";
+import { ChartVertical } from "./chartvertical";
+import { ChartArea } from "./chartarea";
+import { LineCharts } from "./linechart";
+import { RadarCharts } from "./radarchart";
+import { ChartRadial } from "./chartradial";
 
 export default function Home() {
   return (
     <>
-      <h1 className="m-5 text-3xl border-b-2  border-black inline-block">
-        Premier graphique :
-      </h1>
-      <div className="">
-        <div className="flex     bg-red-500  ">
-          <div className="flex items-center justify-center   bg-blue-300 ">
-            <Charts1></Charts1>
+      <div className="min-h-screen bg-gray-900 text-white p-8">
+        <h1 className="text-4xl  font-bold my-2">Test de Dashboard</h1>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {/* Top Row */}
+          <div className="bg-gray-800 p-6 rounded-lg text-center">
+            <ChartCircle2></ChartCircle2>
           </div>
-          <div className="flex items-center justify-center  bg-blue-100   ">
-            <ChartCircle1></ChartCircle1>
+          <div className="bg-gray-800 p-6 rounded-lg text-center">
+            <Charts2></Charts2>
           </div>
-          <div className=" ">
-            <ChartDouble></ChartDouble>
+          <div className="bg-gray-800 p-6 rounded-lg text-center">
+            <LineCharts></LineCharts>
           </div>
-        </div>
-        <div className="flex gap-2  p-2  ">
-          <div className=" w-1/2">
-            <ChartWave></ChartWave>
+          <div className="bg-gray-800 row-span-2 p-6 rounded-lg text-center">
+            <ChartVertical></ChartVertical>
           </div>
-          <div className="flex flex-wrap  justify-between  w-1/2">
-            <Charts1></Charts1>
-            <ChartCircle1></ChartCircle1>
-            <ChartCircle1></ChartCircle1>
-            <ChartCircle1></ChartCircle1>
-          </div>
-        </div>
-        <div className="flex gap-2  p-2  ">
-          <div className="flex flex-wrap  justify-between  w-1/2">
-            <ChartCircle1></ChartCircle1>
-            <ChartCircle1></ChartCircle1>
-            <ChartCircle1></ChartCircle1>
-            <ChartCircle1></ChartCircle1>
-          </div>
-          <div className=" w-1/2">
-            <ChartWave></ChartWave>
-          </div>
-        </div>
 
-        <div className="flex gap-2 justify-between  p-2  ">
-          <div className=" ">
-            <Charts1></Charts1>
+          {/* Middle Row */}
+          <div className="bg-gray-800 p-6 rounded-lg col-span-3 text-center  ">
+            <ChartArea></ChartArea>
           </div>
-          <div className=" ">
-            <ChartCircle1></ChartCircle1>
+          <div className="bg-gray-800 p-6 rounded-lg col-span-2 text-center">
+            <ChartWave2></ChartWave2>
           </div>
-          <div className="">
-            <ChartDouble></ChartDouble>
+
+          {/* Line Chart (spanning multiple columns) */}
+          <div className="col-span-1  bg-gray-800 p-6 rounded-lg">
+            <RadarCharts></RadarCharts>
           </div>
-          <div className=" ">
-            <ChartDouble></ChartDouble>
+
+          {/* Bottom Row */}
+          <div className="col-span-1 bg-gray-800 p-6 rounded-lg">
+            <LineCharts></LineCharts>
           </div>
-          <div className=" ">
-            <ChartDouble></ChartDouble>
+
+          <div className="col-span-1 bg-gray-800 p-6 rounded-lg">
+            <ChartRadial></ChartRadial>
+          </div>
+
+          <div className="col-span-2 bg-gray-800 p-6 rounded-lg">
+            <ChartDouble2></ChartDouble2>
+          </div>
+          <div className=" bg-gray-800 p-6 rounded-lg">
+            <Charts2></Charts2>
           </div>
         </div>
       </div>
