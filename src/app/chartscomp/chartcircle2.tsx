@@ -61,7 +61,7 @@ export function ChartCircle2() {
   }, []);
 
   return (
-    <Card className="flex flex-col border gap  justify-between  bg-slate-700 border-slate-700 text-white  h-full   ">
+    <Card className="flex flex-col border gap  justify-between  bg-slate-700 border-slate-700 text-white     ">
       <CardHeader className="items-center pb-0">
         <CardTitle>Pie Chart - Donut with Text</CardTitle>
         <CardDescription className="">January - June 2024</CardDescription>

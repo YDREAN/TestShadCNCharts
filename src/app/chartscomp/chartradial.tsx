@@ -54,7 +54,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function ChartRadial() {
+export function ChartMongo() {
   return (
     <Card className="flex flex-col bg-slate-700 border-slate-700 text-white h-full">
       <CardHeader className="items-center pb-0">

@@ -35,7 +35,7 @@ const chartConfig = {
 
 export function Charts2() {
   return (
-    <Card className="flex flex-col w-96 bg-slate-700 h-full border-slate-700 ">
+    <Card className="flex flex-col w-96 bg-slate-700  border-slate-700 ">
       <CardHeader className="items-center pb-0">
         <CardTitle className="text-white">
           Pie Chart - Donut with Text
