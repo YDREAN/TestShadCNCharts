@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 
 import { ChartMongo } from "./chartscomp/chartmongo";
+import InsertDataComponent from "./insertdatacomponent";
+import Charts from "@/components/charts-01";
 
 interface ChartData {
   _id: string;
@@ -53,6 +55,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
+          <InsertDataComponent></InsertDataComponent>
         </div>
         <ChartMongo chartData={testcharts}></ChartMongo>
       </div>
