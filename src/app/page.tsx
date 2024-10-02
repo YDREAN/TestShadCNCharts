@@ -16,7 +16,7 @@ interface ChartData {
 export default function Home() {
   const [testcharts, setTestcharts] = useState<ChartData[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [editableItem, setEditableItem] = useState<ChartData | null>(null); // Ajout d'un état pour l'élément modifiable
+  const [editableItem, setEditableItem] = useState<string | null>(null); // Store the generated ID
 
   useEffect(() => {
     async function fetchData() {
@@ -39,25 +39,40 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const handleEdit = (item: ChartData) => {
-    setEditableItem({ ...item });
+  const handleEdit = (uniqueId: string) => {
+    // Passe uniquement cet élément en mode édition
+    setEditableItem(uniqueId);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (editableItem) {
-      setEditableItem({ ...editableItem, [e.target.name]: e.target.value });
-    }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    uniqueId: string
+  ) => {
+    setTestcharts((prevCharts) =>
+      prevCharts.map((chart, index) =>
+        `${index}` === uniqueId
+          ? { ...chart, [e.target.name]: e.target.value }
+          : chart
+      )
+    );
   };
 
-  const handleSave = async () => {
-    if (!editableItem) return;
+  const handleSave = async (e: React.FormEvent, uniqueId: string) => {
+    e.preventDefault();
+
+    const itemIndex = testcharts.findIndex(
+      (_, index) => `${index}` === uniqueId
+    );
+    if (itemIndex === -1) return;
+
+    const itemToSave = testcharts[itemIndex];
 
     try {
       // Convertir les champs en nombre avant de les envoyer à MongoDB
       const updatedItem = {
-        ...editableItem,
-        desktop: Number(editableItem.desktop),
-        mobile: Number(editableItem.mobile),
+        ...itemToSave,
+        desktop: Number(itemToSave.desktop),
+        mobile: Number(itemToSave.mobile),
       };
 
       const res = await fetch("http://localhost:3000/api/updatedata", {
@@ -74,11 +89,12 @@ export default function Home() {
 
       // Rafraîchir les données locales après la mise à jour
       setTestcharts((prevCharts) =>
-        prevCharts.map((chart) =>
-          chart._id === editableItem._id ? updatedItem : chart
+        prevCharts.map((chart, index) =>
+          `${index}` === uniqueId ? updatedItem : chart
         )
       );
 
+      // Réinitialiser l'élément en mode édition après la sauvegarde
       setEditableItem(null);
     } catch (error) {
       console.error("Erreur lors de la mise à jour des données", error);
@@ -95,47 +111,54 @@ export default function Home() {
         <div>
           <h1 className="text-3xl font-bold">Données de MongoDB :</h1>
           <ul className="m-3">
-            {testcharts.map((item) => (
-              <li key={item._id}>
-                {editableItem && editableItem._id === item._id ? (
-                  // Afficher les champs modifiables
-                  <div className="text-black">
-                    <input
-                      type="text"
-                      name="month"
-                      value={editableItem.month}
-                      onChange={handleChange}
-                    />
-                    <input
-                      type="number"
-                      name="desktop"
-                      value={editableItem.desktop}
-                      onChange={handleChange}
-                    />
-                    <input
-                      type="number"
-                      name="mobile"
-                      value={editableItem.mobile}
-                      onChange={handleChange}
-                    />
-                    <Button
-                      variant={"outline"}
-                      className="text-white mx-2"
-                      onClick={handleSave}
-                    >
-                      Enregistrer
-                    </Button>
-                  </div>
-                ) : (
-                  // Afficher les données en lecture seule
-                  <div onClick={() => handleEdit(item)}>
-                    {item.month}: Desktop: {item.desktop}, Mobile: {item.mobile}
-                  </div>
-                )}
-              </li>
-            ))}
+            {testcharts.map((item, index) => {
+              // Génère un ID unique basé sur l'index
+              const uniqueId = `${index}`;
+
+              return (
+                <li key={uniqueId}>
+                  {editableItem === uniqueId ? (
+                    // Afficher les champs modifiables seulement pour l'élément sélectionné
+                    <div className="text-black">
+                      <input
+                        type="text"
+                        name="month"
+                        value={item.month}
+                        onChange={(e) => handleChange(e, uniqueId)}
+                      />
+                      <input
+                        type="number"
+                        name="desktop"
+                        value={item.desktop}
+                        onChange={(e) => handleChange(e, uniqueId)}
+                      />
+                      <input
+                        type="number"
+                        name="mobile"
+                        value={item.mobile}
+                        onChange={(e) => handleChange(e, uniqueId)}
+                      />
+                      <Button
+                        variant={"outline"}
+                        className="text-white mx-2"
+                        onClick={(e) => handleSave(e, uniqueId)}
+                      >
+                        Enregistrer
+                      </Button>
+                    </div>
+                  ) : (
+                    // Afficher les données en lecture seule
+                    <div onClick={() => handleEdit(uniqueId)}>
+                      {item.month}: Desktop: {item.desktop}, Mobile:{" "}
+                      {item.mobile}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
-          <InsertDataComponent />
+          {/* Passer setTestcharts comme prop */}
+          <InsertDataComponent setTestcharts={setTestcharts} />
         </div>
         <ChartMongo chartData={testcharts} />
       </div>
